@@ -23,6 +23,18 @@
     --red:#ff3366;
     --yellow:#ffb800;
     --orange:#ff7a18;
+
+    --radius-sm:12px;
+    --radius-md:16px;
+    --radius-pill:999px;
+    --shadow-card:0 16px 40px rgba(0,0,0,.24);
+    --shadow-soft:0 8px 20px rgba(0,0,0,.18);
+    --ease:cubic-bezier(.4,0,.2,1);
+    --dur-fast:150ms;
+    --dur-med:250ms;
+}
+@media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important;}
 }
 body{
     font-family:Segoe UI,Arial,sans-serif;
@@ -90,7 +102,7 @@ body{
     margin-top:18px;
     background:rgba(15,33,68,.75);
     border:1px solid var(--line);
-    border-radius:18px;
+    border-radius:var(--radius-md);
     padding:16px;
     text-align:center;
 }
@@ -126,7 +138,7 @@ body{
 .top-actions{display:flex;align-items:center;gap:10px}
 .pill{
     padding:10px 14px;
-    border-radius:13px;
+    border-radius:var(--radius-sm);
     background:rgba(15,33,68,.78);
     border:1px solid var(--line);
     color:#e6efff;
@@ -145,6 +157,7 @@ body{
     color:#9b5cff;
     font-size:20px;
     font-weight:900;
+    font-variant-numeric:tabular-nums;
 }
 .logout{
     text-decoration:none;
@@ -159,13 +172,14 @@ body{
 .card{
     background:linear-gradient(180deg,rgba(15,33,68,.92),rgba(8,22,49,.9));
     border:1px solid var(--line);
-    border-radius:18px;
+    border-radius:var(--radius-md);
     padding:18px;
-    box-shadow:0 18px 45px rgba(0,0,0,.25);
+    box-shadow:var(--shadow-card);
 }
-.card h2{font-size:18px;margin-bottom:14px}
+.card h2{font-size:18px;margin-bottom:14px;display:flex;align-items:center}
 .section{display:none}
-.section.active{display:block}
+.section.active{display:block;animation:fadeIn var(--dur-med) var(--ease)}
+@keyframes fadeIn{from{opacity:0} to{opacity:1}}
 .grid{
     display:grid;
     grid-template-columns:1.35fr .8fr;
@@ -181,7 +195,7 @@ body{
     min-height:116px;
     background:linear-gradient(135deg,rgba(47,140,255,.20),rgba(139,92,246,.12));
     border:1px solid var(--line);
-    border-radius:17px;
+    border-radius:var(--radius-md);
     padding:16px;
     position:relative;
     overflow:hidden;
@@ -195,15 +209,16 @@ body{
 .stat-top{display:flex;align-items:center;gap:12px}
 .icon-box{
     width:42px;height:42px;
-    border-radius:13px;
+    border-radius:var(--radius-sm);
     display:grid;
     place-items:center;
+    flex-shrink:0;
     background:rgba(255,255,255,.08);
 }
 .icon-box svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:2.2}
 .stat-title{font-size:14px;font-weight:800}
 .stat-sub{font-size:12px;color:var(--muted)}
-.stat-value{font-size:28px;font-weight:900;margin-top:14px}
+.stat-value{font-size:28px;font-weight:900;margin-top:14px;font-variant-numeric:tabular-nums}
 .mini-line{height:20px;margin-top:8px}
 .mini-line svg{width:100%;height:100%}
 .sensor-item,.device-item{
@@ -220,13 +235,14 @@ body{
 .sensor-left{display:flex;align-items:center;gap:10px}
 .sensor-icon{
     width:35px;height:35px;
-    border-radius:11px;
+    border-radius:var(--radius-sm);
     display:grid;
     place-items:center;
+    flex-shrink:0;
     background:rgba(47,140,255,.16);
 }
 .sensor-icon svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2.2}
-.value,.sensor-value{font-weight:900;font-size:18px}
+.value,.sensor-value{font-weight:900;font-size:18px;font-variant-numeric:tabular-nums}
 .success{color:var(--green)!important}
 .danger{color:var(--red)!important}
 .warning{color:var(--yellow)!important}
@@ -236,21 +252,22 @@ body{
 .video-wrap{
     height:430px;
     background:#000;
-    border-radius:16px;
+    border-radius:var(--radius-md);
     overflow:hidden;
     position:relative;
     border:1px solid rgba(255,255,255,.10);
 }
-.camera-stream{width:100%;height:100%;object-fit:cover}
+.camera-stream{display:block;width:100%;height:100%;object-fit:cover}
 .live-badge{
     position:absolute;
     top:13px;right:13px;
     background:rgba(0,255,136,.15);
     color:var(--green);
     padding:8px 12px;
-    border-radius:10px;
+    border-radius:var(--radius-pill);
     font-weight:900;
 }
+.live-badge.danger{background:rgba(255,51,102,.15)}
 .fps{
     position:absolute;top:13px;left:13px;
     background:rgba(0,0,0,.6);
@@ -297,7 +314,7 @@ body{
     border-right-color:#2f8cff;
     filter:drop-shadow(0 0 15px rgba(139,92,246,.55));
 }
-.big-kwh{font-size:34px;font-weight:900}
+.big-kwh{font-size:34px;font-weight:900;font-variant-numeric:tabular-nums}
 .progress{
     width:100%;
     height:12px;
@@ -316,7 +333,7 @@ body{
 .chart-box{
     height:260px;
     background:rgba(5,14,32,.45);
-    border-radius:16px;
+    border-radius:var(--radius-md);
     padding:12px;
 }
 .chart-box svg{width:100%;height:100%}
@@ -330,7 +347,7 @@ body{
     max-height:380px;
     overflow:auto;
     background:rgba(5,14,32,.5);
-    border-radius:15px;
+    border-radius:var(--radius-md);
     padding:12px;
     font-family:Consolas,monospace;
 }
@@ -345,10 +362,11 @@ body{
 /* Device */
 .toggle-switch{
     width:58px;height:31px;
-    border-radius:20px;
+    border-radius:var(--radius-pill);
     background:rgba(255,255,255,.18);
     position:relative;
     cursor:pointer;
+    transition:background var(--dur-med) var(--ease);
 }
 .toggle-switch::after{
     content:"";
@@ -386,15 +404,20 @@ body{
     position:fixed;right:25px;bottom:25px;
     background:#071733;color:var(--yellow);
     border:1px solid var(--yellow);
-    padding:14px 20px;border-radius:12px;
-    display:none;z-index:999;
+    padding:14px 20px;border-radius:var(--radius-sm);
+    z-index:999;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:translateY(8px);
+    transition:opacity var(--dur-med) var(--ease), transform var(--dur-med) var(--ease), visibility var(--dur-med);
 }
-.toast.show{display:block}
+.toast.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
 .footer{
     margin-top:18px;
     background:rgba(15,33,68,.78);
     border:1px solid var(--line);
-    border-radius:16px;
+    border-radius:var(--radius-md);
     padding:14px 18px;
     display:flex;
     justify-content:space-between;
@@ -489,9 +512,10 @@ body{
 .heading-icon{
     width:32px;
     height:32px;
-    border-radius:10px;
+    border-radius:var(--radius-sm);
     display:inline-grid;
     place-items:center;
+    flex-shrink:0;
     margin-right:8px;
     vertical-align:middle;
     background:rgba(47,140,255,.16);
@@ -560,7 +584,7 @@ body{
 
 .log-badge{
     padding:3px 8px;
-    border-radius:8px;
+    border-radius:var(--radius-pill);
     font-weight:900;
     font-size:12px;
 }
@@ -781,7 +805,12 @@ html, body{
     }
 
     .health-grid{
-        grid-template-columns:repeat(2,1fr) !important;
+        grid-template-columns:1fr !important;
+    }
+
+    .pi-health-top{
+        flex-direction:column !important;
+        align-items:flex-start !important;
     }
 
     .footer{
@@ -827,10 +856,6 @@ html, body{
     align-items:start !important;
 }
 
-/* ===== PROFESSIONAL SETTINGS PAGE ===== */
-.settings-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.settings-card{background:linear-gradient(180deg,rgba(15,33,68,.78),rgba(8,22,49,.62));border:1px solid rgba(125,170,255,.22);border-radius:18px;padding:18px}
-.settings-card h3{font-size:17px;margin-bottom:12px}.setting-row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.07)}.setting-row:last-child{border-bottom:0}.setting-row label{font-weight:800}.setting-row small{display:block;color:var(--muted);margin-top:3px}.setting-input,.setting-select{width:190px;border:1px solid rgba(125,170,255,.22);background:#071733;color:#fff;border-radius:12px;padding:10px 12px;outline:none}.setting-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}.btn-blue{background:linear-gradient(135deg,#2f8cff,#00d9ff);color:#fff}.btn-green{background:linear-gradient(135deg,#00ff88,#00d9ff);color:#071733}.btn-purple{background:linear-gradient(135deg,#8b5cf6,#2f8cff);color:#fff}.settings-note{margin-bottom:16px;color:var(--muted);line-height:1.5}@media(max-width:900px){.settings-grid{grid-template-columns:1fr}.setting-row{flex-direction:column;align-items:stretch}.setting-input,.setting-select{width:100%}.setting-actions{grid-template-columns:1fr}}
 
 </style>
 
@@ -846,149 +871,7 @@ background:#dc2626;box-shadow:0 0 15px rgba(0,0,0,.3);
 
 <style>
 
-/* ===== PREMIUM SETTINGS REDESIGN ===== */
-.settings-hero{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:18px;
-    padding:22px;
-    margin-bottom:18px;
-    border-radius:22px;
-    background:
-        radial-gradient(circle at 10% 10%, rgba(0,217,255,.20), transparent 35%),
-        radial-gradient(circle at 90% 0%, rgba(139,92,246,.30), transparent 35%),
-        linear-gradient(135deg,rgba(15,33,68,.86),rgba(8,22,49,.68));
-    border:1px solid rgba(125,170,255,.26);
-    box-shadow:0 24px 60px rgba(0,0,0,.30);
-}
-.settings-hero-left{
-    display:flex;
-    align-items:center;
-    gap:16px;
-}
-.settings-hero-icon{
-    width:64px;
-    height:64px;
-    border-radius:20px;
-    display:grid;
-    place-items:center;
-    background:linear-gradient(135deg,#2f8cff,#8b5cf6);
-    box-shadow:0 0 34px rgba(139,92,246,.45);
-}
-.settings-hero-icon svg{
-    width:34px;
-    height:34px;
-    stroke:#fff;
-    fill:none;
-    stroke-width:2.3;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-}
-.settings-hero h2{
-    font-size:25px;
-    margin:0 0 4px 0;
-}
-.settings-hero p{
-    margin:0;
-    color:var(--muted);
-    line-height:1.5;
-}
-.settings-save-top{
-    min-width:190px;
-    border:0;
-    padding:14px 18px;
-    border-radius:15px;
-    font-weight:900;
-    cursor:pointer;
-    color:#071733;
-    background:linear-gradient(135deg,#00ff88,#00d9ff);
-    box-shadow:0 14px 32px rgba(0,255,136,.20);
-}
-.settings-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:18px;
-}
-.settings-card{
-    position:relative;
-    overflow:hidden;
-    background:
-        linear-gradient(180deg,rgba(15,33,68,.82),rgba(8,22,49,.62));
-    border:1px solid rgba(125,170,255,.22);
-    border-radius:22px;
-    padding:18px;
-    box-shadow:0 18px 45px rgba(0,0,0,.22);
-}
-.settings-card::after{
-    content:"";
-    position:absolute;
-    width:130px;
-    height:130px;
-    right:-60px;
-    top:-60px;
-    border-radius:50%;
-    background:radial-gradient(circle,rgba(47,140,255,.18),transparent 70%);
-}
-.settings-title{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin-bottom:14px;
-}
-.settings-title-icon{
-    width:43px;
-    height:43px;
-    border-radius:14px;
-    display:grid;
-    place-items:center;
-    background:rgba(47,140,255,.16);
-    color:#79bdff;
-}
-.settings-title-icon.green{background:rgba(0,255,136,.12);color:#00ff88}
-.settings-title-icon.red{background:rgba(255,51,102,.12);color:#ff3366}
-.settings-title-icon.yellow{background:rgba(255,184,0,.12);color:#ffb800}
-.settings-title-icon.purple{background:rgba(139,92,246,.18);color:#a78bfa}
-.settings-title-icon svg{
-    width:23px;
-    height:23px;
-    stroke:currentColor;
-    fill:none;
-    stroke-width:2.2;
-    stroke-linecap:round;
-    stroke-linejoin:round;
-}
-.settings-title h3{
-    margin:0;
-    font-size:18px;
-}
-.settings-title span{
-    display:block;
-    color:var(--muted);
-    font-size:12px;
-    margin-top:2px;
-}
-.setting-row{
-    position:relative;
-    z-index:2;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:14px;
-    padding:13px 0;
-    border-bottom:1px solid rgba(255,255,255,.07);
-}
-.setting-row:last-child{border-bottom:0}
-.setting-row label{
-    font-weight:900;
-    font-size:14px;
-}
-.setting-row small{
-    display:block;
-    color:var(--muted);
-    margin-top:4px;
-    line-height:1.35;
-}
+/* ===== Shared setting-input / setting-select base styles (used by .clean-row form controls) ===== */
 .setting-input,.setting-select{
     min-width:185px;
     border:1px solid rgba(125,170,255,.26);
@@ -1003,47 +886,6 @@ background:#dc2626;box-shadow:0 0 15px rgba(0,0,0,.3);
     border-color:#00d9ff;
     box-shadow:0 0 0 3px rgba(0,217,255,.12);
 }
-.settings-actions{
-    position:relative;
-    z-index:2;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin-top:12px;
-}
-.settings-mini-btn{
-    border:0;
-    border-radius:14px;
-    padding:12px;
-    font-weight:900;
-    cursor:pointer;
-    color:#fff;
-    background:linear-gradient(135deg,#2f8cff,#8b5cf6);
-}
-.settings-mini-btn.green{
-    color:#071733;
-    background:linear-gradient(135deg,#00ff88,#00d9ff);
-}
-.settings-mini-btn.yellow{
-    color:#111827;
-    background:linear-gradient(135deg,#ffb800,#ffdf4d);
-}
-.settings-mini-btn.red{
-    background:linear-gradient(135deg,#ff3366,#ff3b30);
-}
-.settings-footer-save{
-    margin-top:18px;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-@media(max-width:900px){
-    .settings-hero{flex-direction:column;align-items:stretch}
-    .settings-grid{grid-template-columns:1fr}
-    .setting-row{flex-direction:column;align-items:stretch}
-    .setting-input,.setting-select{width:100%;min-width:0}
-    .settings-actions,.settings-footer-save{grid-template-columns:1fr}
-}
 
 </style>
 <style>
@@ -1054,7 +896,7 @@ background:#dc2626;box-shadow:0 0 15px rgba(0,0,0,.3);
 }
 .relay-list-item strong{display:block}
 .relay-list-item small{color:var(--muted)}
-.relay-badge{padding:6px 10px;border-radius:999px;font-size:12px;font-weight:900}
+.relay-badge{padding:6px 10px;border-radius:var(--radius-pill);font-size:12px;font-weight:900}
 .relay-badge.online{background:rgba(0,255,136,.13);color:var(--green)}
 .relay-badge.pending{background:rgba(255,184,0,.13);color:var(--yellow)}
 </style>
@@ -1085,7 +927,6 @@ body.light-theme{
     background:linear-gradient(135deg,#f8fafc,#e2e8f0)!important;
 }
 body.light-theme .card,
-body.light-theme .settings-card,
 body.light-theme .stat,
 body.light-theme .pill,
 body.light-theme .footer,
@@ -1116,17 +957,18 @@ body.light-theme .setting-select{
         transform:none!important;
     }
 
+    /* ===== SINGLE FINAL RULE: mobile hamburger button stays fixed top-left, page scrolls underneath ===== */
     .mobile-menu-btn{
         display:grid!important;
         place-items:center!important;
         position:fixed!important;
-        top:12px!important;
-        left:12px!important;
-        z-index:10001!important;
-        width:46px!important;
-        height:46px!important;
+        top:18px!important;
+        left:18px!important;
+        z-index:10002!important;
+        width:50px!important;
+        height:50px!important;
         border:1px solid rgba(125,170,255,.28)!important;
-        border-radius:14px!important;
+        border-radius:15px!important;
         background:linear-gradient(135deg,#1276ff,#7c3aed)!important;
         box-shadow:0 12px 30px rgba(0,0,0,.35)!important;
         color:#fff!important;
@@ -1212,11 +1054,6 @@ body.light-theme .setting-select{
         display:block!important;
     }
 
-    .main{
-        padding:70px 12px 12px 12px!important;
-        width:100%!important;
-    }
-
     .topbar{
         flex-direction:column!important;
         align-items:stretch!important;
@@ -1257,8 +1094,6 @@ body.light-theme .setting-select{
 }
 
 /* Keep settings icon as real gear */
-.settings-hero-icon svg,
-.settings-title-icon svg,
 .nav-btn svg{
     fill:none!important;
     stroke:currentColor!important;
@@ -1266,22 +1101,10 @@ body.light-theme .setting-select{
     stroke-linecap:round!important;
     stroke-linejoin:round!important;
 }
-.settings-hero-icon svg{
-    stroke:#fff!important;
-}
 </style>
 <style>
 /* ===== FINAL MOBILE HAMBURGER POSITION + NO BLUR FIX ===== */
 @media(max-width:1024px){
-    .mobile-menu-btn{
-        top:72px!important;
-        left:16px!important;
-        width:50px!important;
-        height:50px!important;
-        border-radius:15px!important;
-        z-index:10002!important;
-    }
-
     .mobile-menu-backdrop{
         background:rgba(0,0,0,.35)!important;
         backdrop-filter:none!important;
@@ -1300,10 +1123,6 @@ body.light-theme .setting-select{
         pointer-events:auto!important;
     }
 
-    .main{
-        padding-top:138px!important;
-    }
-
     .welcome{
         padding-left:0!important;
     }
@@ -1314,15 +1133,6 @@ body.light-theme .setting-select{
 }
 
 @media(max-width:430px){
-    .mobile-menu-btn{
-        top:76px!important;
-        left:18px!important;
-    }
-
-    .main{
-        padding-top:142px!important;
-    }
-
     .welcome h1{
         padding-left:0!important;
     }
@@ -1331,15 +1141,6 @@ body.light-theme .setting-select{
 <style>
 /* ===== FINAL MOBILE HAMBURGER CLEAN POSITION FIX ===== */
 @media(max-width:1024px){
-    .mobile-menu-btn{
-        top:16px!important;
-        left:16px!important;
-        width:50px!important;
-        height:50px!important;
-        border-radius:15px!important;
-        z-index:10002!important;
-    }
-
     body.menu-open .mobile-menu-btn{
         display:none!important;
     }
@@ -1362,10 +1163,6 @@ body.light-theme .setting-select{
         pointer-events:auto!important;
     }
 
-    .main{
-        padding-top:78px!important;
-    }
-
     .welcome,
     .welcome h1{
         padding-left:0!important;
@@ -1373,17 +1170,6 @@ body.light-theme .setting-select{
 
     .topbar{
         margin-top:0!important;
-    }
-}
-
-@media(max-width:430px){
-    .mobile-menu-btn{
-        top:16px!important;
-        left:18px!important;
-    }
-
-    .main{
-        padding-top:78px!important;
     }
 }
 </style>
@@ -1414,8 +1200,8 @@ body.light-theme .setting-select{
 .clean-card{
     background:linear-gradient(180deg,rgba(15,33,68,.80),rgba(8,22,49,.62))!important;
     border:1px solid rgba(125,170,255,.22)!important;
-    border-radius:22px!important;padding:18px!important;
-    box-shadow:0 18px 45px rgba(0,0,0,.22)!important;
+    border-radius:var(--radius-md)!important;padding:18px!important;
+    box-shadow:var(--shadow-card)!important;
 }
 .clean-card h3{font-size:18px;margin-bottom:12px}
 .clean-row{
@@ -1450,13 +1236,30 @@ body.light-theme .setting-select{
 }
 </style>
 <style>
-/* ===== LIGHT THEME FINAL ===== */
-body.light-theme{
-    --bg:#f4f7fb;--sidebar:#ffffff;--panel:#ffffff;--card:#ffffff;--card2:#eef3fb;
-    --line:rgba(30,64,175,.18);--text:#111827;--muted:#64748b;
-    background:linear-gradient(135deg,#f8fafc,#e2e8f0)!important;
+/* ===== MOBILE HERO REDESIGN: NORMAL FLOW LAYOUT, NO OVERLAP ===== */
+@media(max-width:1024px){
+    .topbar{
+        display:flex!important;
+        flex-direction:column!important;
+        align-items:stretch!important;
+    }
+    .main{
+        padding-top:96px!important;
+    }
+    .welcome h1{
+        line-height:1.3!important;
+        word-break:break-word;
+    }
 }
-body.light-theme .card,body.light-theme .clean-card,body.light-theme .settings-card,
+@media(max-width:480px){
+    .welcome h1{
+        font-size:19px!important;
+    }
+}
+</style>
+<style>
+/* ===== LIGHT THEME FINAL ===== */
+body.light-theme .card,body.light-theme .clean-card,
 body.light-theme .stat,body.light-theme .pill,body.light-theme .footer{
     background:#ffffff!important;color:#111827!important;
 }
@@ -1465,6 +1268,152 @@ body.light-theme .nav-btn{color:#111827!important}
 body.light-theme .nav-btn.active{color:#fff!important}
 body.light-theme .setting-input,body.light-theme .setting-select{
     background:#f8fafc!important;color:#111827!important;
+}
+body.light-theme .side-health p{color:#475569!important}
+body.light-theme .side-health .success{color:#0a8a4c!important}
+body.light-theme .health-summary .success{color:#0a8a4c!important}
+body.light-theme .last-email-box{color:#0369a1!important}
+</style>
+<style>
+/* ===== LIGHT THEME: FULL PROFESSIONAL REDESIGN (WCAG AA) ===== */
+
+/* Nested "sunken" panels were hardcoded dark regardless of theme - give them a real
+   light surface + visible border instead of leaving dark islands inside white cards */
+body.light-theme .sensor-item,
+body.light-theme .device-item,
+body.light-theme .relay-list-item,
+body.light-theme .chart-box,
+body.light-theme .logs-container,
+body.light-theme .professional-logs{
+    background:#f1f5f9!important;
+    border-color:rgba(15,23,42,.10)!important;
+}
+
+/* Status utility classes: darker WCAG AA-compliant variants for light surfaces */
+body.light-theme .success{color:#0a7d43!important}
+body.light-theme .danger{color:#dc2626!important}
+body.light-theme .warning{color:#b45309!important}
+body.light-theme .primary{color:#0369a1!important}
+
+/* The camera overlay is a fixed black bar drawn over the live video regardless of
+   theme - keep its status text bright/neon so it stays readable against black */
+body.light-theme .overlay .value{color:#fff!important}
+body.light-theme .overlay .success{color:var(--green)!important}
+body.light-theme .overlay .danger{color:var(--red)!important}
+body.light-theme .overlay .warning{color:var(--yellow)!important}
+body.light-theme .overlay .primary{color:var(--cyan)!important}
+
+/* Sensor icon colored variants */
+body.light-theme .sensor-icon.success-icon{color:#0a7d43!important}
+body.light-theme .sensor-icon.danger-icon{color:#dc2626!important}
+body.light-theme .sensor-icon.warning-icon{color:#b45309!important}
+
+/* Health rings (sidebar + Pi Health tab): swap the dark inner disc + faint track */
+body.light-theme .health-ring,
+body.light-theme .mini-health-ring{
+    background:conic-gradient(#0a7d43 0 342deg, rgba(15,23,42,.10) 342deg 360deg)!important;
+}
+body.light-theme .health-inner,
+body.light-theme .mini-health-ring div{
+    background:#ffffff!important;
+    color:#111827!important;
+    box-shadow:inset 0 0 0 1px rgba(15,23,42,.08);
+}
+body.light-theme .mini-health-ring span{color:#0a7d43!important}
+
+/* Energy gauge: the faint white ring is invisible on a white card */
+body.light-theme .gauge{border-color:rgba(15,23,42,.12)!important}
+
+/* Weekly/Activity chart SVG text and gridlines were hardcoded for a dark chart-box */
+body.light-theme .chart-box text{fill:#475569!important}
+body.light-theme .gridline{stroke:rgba(15,23,42,.14)!important}
+
+/* Log badges and relay badges: darker text so the tinted chips stay AA-compliant */
+body.light-theme .log-badge.info{color:#0369a1!important}
+body.light-theme .log-badge.success{color:#0a7d43!important}
+body.light-theme .log-badge.warning{color:#b45309!important}
+body.light-theme .log-badge.danger{color:#dc2626!important}
+body.light-theme .relay-badge.online{color:#0a7d43!important}
+body.light-theme .relay-badge.pending{color:#b45309!important}
+
+/* Sidebar logout link: light salmon was tuned for a dark sidebar */
+body.light-theme .logout-nav-btn{color:#dc2626!important}
+</style>
+<style>
+/* ===== FINAL PROFESSIONAL POLISH: transitions, hover/focus, badges, loading ===== */
+
+/* Buttons: subtle hover + visible keyboard focus, no lift/elevation */
+.btn,.clean-btn,.clean-save-main,.settings-mini-btn,.mobile-menu-btn,.nav-btn,
+.toggle-switch,.setting-input,.setting-select,.clean-row .setting-input,.clean-row .setting-select{
+    transition:background var(--dur-fast) var(--ease),
+               filter var(--dur-fast) var(--ease),
+               border-color var(--dur-fast) var(--ease),
+               box-shadow var(--dur-fast) var(--ease),
+               opacity var(--dur-fast) var(--ease);
+}
+.btn:hover,.clean-btn:hover,.clean-save-main:hover,.settings-mini-btn:hover{
+    filter:brightness(1.08);
+}
+.btn:active,.clean-btn:active,.clean-save-main:active,.settings-mini-btn:active{
+    filter:brightness(.96);
+}
+a:focus-visible,
+button:focus-visible,
+.nav-btn:focus-visible,
+.btn:focus-visible,
+.clean-btn:focus-visible,
+.clean-save-main:focus-visible,
+.settings-mini-btn:focus-visible,
+.mobile-menu-btn:focus-visible,
+.setting-input:focus-visible,
+.setting-select:focus-visible,
+[tabindex]:focus-visible{
+    outline:2px solid var(--cyan);
+    outline-offset:2px;
+}
+
+/* Status badges and utility colors: transition instead of an instant snap */
+.log-badge,.relay-badge,.live-badge,
+.success,.danger,.warning,.primary,
+.sensor-value,.value{
+    transition:color var(--dur-med) var(--ease), background var(--dur-med) var(--ease);
+}
+
+/* Chart bars ease into their new height/position on every poll instead of jumping */
+.bar{
+    transition:height var(--dur-med) var(--ease), y var(--dur-med) var(--ease);
+}
+
+/* Progress bar animates if/when its width changes */
+.progress span{
+    transition:width var(--dur-med) var(--ease);
+}
+
+/* Loading placeholder: gentle pulse instead of static dim text, cleared once real data arrives */
+.is-loading{animation:loadingPulse 1.4s ease-in-out infinite}
+@keyframes loadingPulse{
+    0%,100%{opacity:1}
+    50%{opacity:.45}
+}
+
+/* Light mode: shadows tuned for a near-black canvas read as heavy/muddy on white */
+body.light-theme .card,
+body.light-theme .clean-card,
+body.light-theme .stat,
+body.light-theme .side-health,
+body.light-theme .footer{
+    box-shadow:0 10px 24px rgba(15,23,42,.08)!important;
+}
+
+/* Relay device list empty state */
+.relay-empty{
+    padding:14px;
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    border:1px dashed var(--line);
+    border-radius:var(--radius-sm);
+    margin-top:8px;
 }
 </style>
 </head>
@@ -1502,46 +1451,46 @@ body.light-theme .setting-input,body.light-theme .setting-select{
     </div>
 
     <button class="nav-btn active" onclick="showSection('dashboard',this)">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
         Dashboard
     </button>
 
     <button class="nav-btn" onclick="showSection('cameraSec',this)">
-        <svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
         Live Camera
     </button>
 
     <button class="nav-btn" onclick="showSection('systemSec',this)">
-        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         System Status
     </button>
 
     <button class="nav-btn" onclick="showSection('energySec',this)">
-        <svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg>
         Energy Monitor
     </button>
 
     <button class="nav-btn" onclick="showSection('gasSec',this)">
-        <svg viewBox="0 0 24 24"><path d="M8.5 14.5A4.5 4.5 0 0 0 13 19a4.5 4.5 0 0 0 4.5-4.5c0-4-4.5-5.5-4.5-11.5-2.5 2-5.5 5-5.5 11.5z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 14.5A4.5 4.5 0 0 0 13 19a4.5 4.5 0 0 0 4.5-4.5c0-4-4.5-5.5-4.5-11.5-2.5 2-5.5 5-5.5 11.5z"/></svg>
         Gas Monitor
     </button>
 
     <button class="nav-btn" onclick="showSection('deviceSec',this)">
-        <svg viewBox="0 0 24 24"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/></svg>
         Device Control
     </button>
 
     <button class="nav-btn" onclick="showSection('logsSec',this)">
-        <svg viewBox="0 0 24 24"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>
         System Logs
     </button>
 
     <button class="nav-btn" onclick="showSection('healthSec',this)">
-        <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9-6-18-3 9H2"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12h-4l-3 9-6-18-3 9H2"/></svg>
         Pi Health
     </button>
     <button class="nav-btn" onclick="showSection('settingsSec',this)">
-        <svg viewBox="0 0 24 24">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
 <path d="M12 15.5A3.5 3.5 0 1 0 12 8.5a3.5 3.5 0 0 0 0 7z"/>
 <path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.05.05a2 2 0 1 1-2.83 2.83l-.05-.05A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6V20a2 2 0 1 1-4 0v-.08a1.7 1.7 0 0 0-1-.6 1.7 1.7 0 0 0-1.88.34l-.05.05a2 2 0 1 1-2.83-2.83l.05-.05A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1H4a2 2 0 1 1 0-4h.08a1.7 1.7 0 0 0 .6-1 1.7 1.7 0 0 0-.34-1.88l-.05-.05a2 2 0 1 1 2.83-2.83l.05.05A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6V4a2 2 0 1 1 4 0v.08a1.7 1.7 0 0 0 1 .6 1.7 1.7 0 0 0 1.88-.34l.05-.05a2 2 0 1 1 2.83 2.83l-.05.05A1.7 1.7 0 0 0 19.4 9c.08.35.29.69.6 1H20a2 2 0 1 1 0 4h-.08c-.31.31-.52.65-.6 1z"/>
 </svg>
@@ -1551,7 +1500,7 @@ body.light-theme .setting-input,body.light-theme .setting-select{
 
     
 <a href="#" class="nav-btn logout-nav-btn" onclick="logout()">
-    <svg viewBox="0 0 24 24" width="18" height="18">
+    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
         <polyline points="16 17 21 12 16 7"/>
         <line x1="21" y1="12" x2="9" y2="12"/>
@@ -1634,16 +1583,18 @@ body.light-theme .setting-input,body.light-theme .setting-select{
                 <div class="video-wrap">
                     <img src="http://ruf.local:5000/video_feed"
                          class="camera-stream"
-                         id="camera-stream">
+                         id="camera-stream"
+                         onerror="handleCameraError()"
+                         onload="handleCameraLoad()">
                     <div id="camera-offline" class="camera-offline">
                         📷 Camera Offline / Backend Disconnected
                     </div>
                     <span class="fps">FPS: Live</span>
-                    <span class="live-badge" id="camera-status">Checking...</span>
+                    <span class="live-badge is-loading" id="camera-status">Checking...</span>
                     <div class="overlay">
                         <div><small>Humans Detected</small><div class="value primary" id="human-count">0</div></div>
-                        <div><small>Human Status</small><div class="value" id="human-status">Loading</div></div>
-                        <div><small>Device</small><div class="value" id="device-overlay">Loading</div></div>
+                        <div><small>Human Status</small><div class="value is-loading" id="human-status">Loading</div></div>
+                        <div><small>Device</small><div class="value is-loading" id="device-overlay">Loading</div></div>
                     </div>
                 </div>
             </div>
@@ -1652,10 +1603,10 @@ body.light-theme .setting-input,body.light-theme .setting-select{
                 <div class="card" style="margin-bottom:18px">
                     <h2><span class="heading-icon cyan"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>System Status</h2>
                     <div class="sensor-item"><div class="sensor-left"><span class="sensor-icon primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>Camera Status</div><span id="camera-status-text" class="success">Online</span></div>
-                    <div class="sensor-item"><div class="sensor-left"><span class="sensor-icon success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Monitoring</div><span id="monitoring-status">--</span></div>
+                    <div class="sensor-item"><div class="sensor-left"><span class="sensor-icon success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>Monitoring</div><span id="monitoring-status" class="is-loading">--</span></div>
                     <div class="sensor-item"><div class="sensor-left"><span class="sensor-icon primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>Last Email</div><span id="last-email">Never</span></div>
-                    <div class="sensor-item"><div class="sensor-left"><span class="sensor-icon warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>Energy Status</div><span id="energy-status" class="primary">Loading...</span></div>
-                    <div class="sensor-item"><div class="sensor-left"><span class="sensor-icon primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/><path d="M8 7h8"/></svg></span>Worker Activity</div><span id="worker-activity" class="danger">Loading...</span></div>
+                    <div class="sensor-item"><div class="sensor-left"><span class="sensor-icon warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>Energy Status</div><span id="energy-status" class="primary is-loading">Loading...</span></div>
+                    <div class="sensor-item"><div class="sensor-left"><span class="sensor-icon primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7" r="4"/><path d="M4 21v-2a8 8 0 0 1 16 0v2"/><path d="M8 7h8"/></svg></span>Worker Activity</div><span id="worker-activity" class="danger is-loading">Loading...</span></div>
                 </div>
 
                 <div class="card energy-card">
@@ -1676,9 +1627,16 @@ body.light-theme .setting-input,body.light-theme .setting-select{
         <div class="card">
             <h2><span class="heading-icon purple"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></span>Live AI Camera Feed</h2>
             <div class="video-wrap" style="height:620px">
-                <img src="http://ruf.local:5000/video_feed" class="camera-stream">
+                <img src="http://ruf.local:5000/video_feed"
+                     class="camera-stream"
+                     id="camera-stream-2"
+                     onerror="handleCameraError2()"
+                     onload="handleCameraLoad2()">
+                <div id="camera-offline-2" class="camera-offline">
+                    📷 Camera Offline / Backend Disconnected
+                </div>
                 <span class="fps">FPS: Live</span>
-                <span class="live-badge">● LIVE</span>
+                <span class="live-badge" id="camera-status-2">Checking...</span>
             </div>
         </div>
     </section>
@@ -1722,10 +1680,15 @@ body.light-theme .setting-input,body.light-theme .setting-select{
             </div>
             <div class="card">
                 <h2><span class="heading-icon green"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></span>Weekly Energy Graph</h2>
+                <p style="color:var(--muted);font-size:12px;margin:-8px 0 12px;font-weight:700">Hours Saved (per day)</p>
                 <div class="chart-box">
                     <svg viewBox="0 0 320 190" preserveAspectRatio="none">
                         <defs><linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#00d9ff"/><stop offset="1" stop-color="#1e40af"/></linearGradient></defs>
                         <line class="gridline" x1="25" y1="40" x2="300" y2="40"/><line class="gridline" x1="25" y1="90" x2="300" y2="90"/><line class="gridline" x1="25" y1="140" x2="300" y2="140"/>
+                        <text id="axis-y-0" x="23" y="174" text-anchor="end" fill="#95a5c9" font-size="8">0h</text>
+                        <text id="axis-y-1" x="23" y="144" text-anchor="end" fill="#95a5c9" font-size="8">0h</text>
+                        <text id="axis-y-2" x="23" y="94" text-anchor="end" fill="#95a5c9" font-size="8">0h</text>
+                        <text id="axis-y-3" x="23" y="44" text-anchor="end" fill="#95a5c9" font-size="8">0h</text>
                         <rect id="bar-mon" class="bar" x="38" y="170" width="24" height="0"/>
                         <rect id="bar-tue" class="bar" x="80" y="170" width="24" height="0"/>
                         <rect id="bar-wed" class="bar" x="122" y="170" width="24" height="0"/>
@@ -1803,20 +1766,20 @@ body.light-theme .setting-input,body.light-theme .setting-select{
         <div class="card">
             <h2><span class="heading-icon orange"><svg viewBox="0 0 24 24"><path d="M12 2v10"/><path d="M18.4 6.6a9 9 0 1 1-12.8 0"/></svg></span>Electric Device Control</h2>
             <div class="device-item">
-                <div class="sensor-left"><span class="sensor-icon warning-icon"><svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12c1 1 1 2 1 4h6c0-2 0-3 1-4a7 7 0 0 0-4-12z"/></svg></span><div><h4>Bulb</h4><p style="color:var(--muted)">Available Relay</p></div></div>
-                <div class="toggle-switch" id="main-relay-toggle" onclick="toggleMainRelay()"></div>
+                <div class="sensor-left"><span class="sensor-icon warning-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12c1 1 1 2 1 4h6c0-2 0-3 1-4a7 7 0 0 0-4-12z"/></svg></span><div><h4>Bulb</h4><p style="color:var(--muted)">Available Relay</p></div></div>
+                <div class="toggle-switch" id="main-relay-toggle" onclick="toggleMainRelay()" onkeydown="handleToggleKeydown(event)" role="switch" tabindex="0" aria-checked="false" aria-label="Bulb power"></div>
             </div>
             <div class="device-item">
-                <div class="sensor-left"><span class="sensor-icon primary"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="8" rx="2"/><path d="M7 17v2M12 17v3M17 17v2"/><path d="M7 9h.01M11 9h6"/></svg></span><div><h4>AC Unit</h4><p style="color:var(--muted)">Relay not added yet</p></div></div>
-                <div class="toggle-switch disabled" onclick="deviceNotAvailable()"></div>
+                <div class="sensor-left"><span class="sensor-icon primary" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="8" rx="2"/><path d="M7 17v2M12 17v3M17 17v2"/><path d="M7 9h.01M11 9h6"/></svg></span><div><h4>AC Unit</h4><p style="color:var(--muted)">Relay not added yet</p></div></div>
+                <div class="toggle-switch disabled" onclick="deviceNotAvailable()" onkeydown="handleToggleKeydown(event)" role="switch" tabindex="0" aria-checked="false" aria-disabled="true" aria-label="AC Unit power, relay not installed"></div>
             </div>
             <div class="device-item">
-                <div class="sensor-left"><span class="sensor-icon primary"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><div><h4>Computer</h4><p style="color:var(--muted)">Relay not added yet</p></div></div>
-                <div class="toggle-switch disabled" onclick="deviceNotAvailable()"></div>
+                <div class="sensor-left"><span class="sensor-icon primary" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><div><h4>Computer</h4><p style="color:var(--muted)">Relay not added yet</p></div></div>
+                <div class="toggle-switch disabled" onclick="deviceNotAvailable()" onkeydown="handleToggleKeydown(event)" role="switch" tabindex="0" aria-checked="false" aria-disabled="true" aria-label="Computer power, relay not installed"></div>
             </div>
             <div class="device-item">
-                <div class="sensor-left"><span class="sensor-icon success-icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></span><div><h4>Machine</h4><p style="color:var(--muted)">Relay not added yet</p></div></div>
-                <div class="toggle-switch disabled" onclick="deviceNotAvailable()"></div>
+                <div class="sensor-left"><span class="sensor-icon success-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><circle cx="12" cy="12" r="3"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/></svg></span><div><h4>Machine</h4><p style="color:var(--muted)">Relay not added yet</p></div></div>
+                <div class="toggle-switch disabled" onclick="deviceNotAvailable()" onkeydown="handleToggleKeydown(event)" role="switch" tabindex="0" aria-checked="false" aria-disabled="true" aria-label="Machine power, relay not installed"></div>
             </div>
         </div>
     </section>
@@ -1891,20 +1854,20 @@ body.light-theme .setting-input,body.light-theme .setting-select{
 
                 <div class="clean-card">
                     <h3>AI & Camera</h3>
-                    <div class="clean-row"><span><b>Human Detection</b><small>AI person detection</small></span><div id="set-human" class="toggle-switch active"></div></div>
-                    <div class="clean-row"><span><b>Worker Detection</b><small>Worker activity analysis</small></span><div id="set-worker" class="toggle-switch active"></div></div>
+                    <div class="clean-row"><span><b>Human Detection</b><small>AI person detection</small></span><div id="set-human" class="toggle-switch active" onkeydown="handleToggleKeydown(event)" role="switch" tabindex="0" aria-checked="true" aria-label="Human Detection"></div></div>
+                    <div class="clean-row"><span><b>Worker Detection</b><small>Worker activity analysis</small></span><div id="set-worker" class="toggle-switch active" onkeydown="handleToggleKeydown(event)" role="switch" tabindex="0" aria-checked="true" aria-label="Worker Detection"></div></div>
                     <div class="clean-row"><span><b>AI Sensitivity</b><small>Detection sensitivity level</small></span><select id="set-ai-sensitivity" class="setting-select"><option>Low</option><option selected>Medium</option><option>High</option></select></div>
-                    <div class="clean-row"><span><b>Camera</b><small>Enable or disable live camera</small></span><div id="set-camera" class="toggle-switch active"></div></div>
+                    <div class="clean-row"><span><b>Camera</b><small>Enable or disable live camera</small></span><div id="set-camera" class="toggle-switch active" onkeydown="handleToggleKeydown(event)" role="switch" tabindex="0" aria-checked="true" aria-label="Camera"></div></div>
                     <div class="clean-row"><span><b>Resolution</b><small>Camera stream quality</small></span><select id="set-camera-resolution" class="setting-select"><option>480p</option><option selected>720p</option><option>1080p</option></select></div>
                     <div class="clean-row"><span><b>Refresh Rate</b><small>Camera FPS target</small></span><input id="set-camera-refresh" class="setting-input" type="number" value="15"></div>
                 </div>
 
                 <div class="clean-card">
                     <h3>Safety & Alerts</h3>
-                    <div class="clean-row"><span><b>Gas Detection</b><small>MQ2 gas/smoke monitoring</small></span><div id="set-gas" class="toggle-switch active"></div></div>
-                    <div class="clean-row"><span><b>Buzzer</b><small>Local alarm for emergency</small></span><div id="set-buzzer" class="toggle-switch active"></div></div>
-                    <div class="clean-row"><span><b>Email Alerts</b><small>Send emergency emails</small></span><div id="set-email" class="toggle-switch active"></div></div>
-                    <div class="clean-row"><span><b>Emergency Shutdown</b><small>Relay OFF when gas detected</small></span><div id="set-emergency" class="toggle-switch active"></div></div>
+                    <div class="clean-row"><span><b>Gas Detection</b><small>MQ2 gas/smoke monitoring</small></span><div id="set-gas" class="toggle-switch active" onkeydown="handleToggleKeydown(event)" role="switch" tabindex="0" aria-checked="true" aria-label="Gas Detection"></div></div>
+                    <div class="clean-row"><span><b>Buzzer</b><small>Local alarm for emergency</small></span><div id="set-buzzer" class="toggle-switch active" onkeydown="handleToggleKeydown(event)" role="switch" tabindex="0" aria-checked="true" aria-label="Buzzer"></div></div>
+                    <div class="clean-row"><span><b>Email Alerts</b><small>Send emergency emails</small></span><div id="set-email" class="toggle-switch active" onkeydown="handleToggleKeydown(event)" role="switch" tabindex="0" aria-checked="true" aria-label="Email Alerts"></div></div>
+                    <div class="clean-row"><span><b>Emergency Shutdown</b><small>Relay OFF when gas detected</small></span><div id="set-emergency" class="toggle-switch active" onkeydown="handleToggleKeydown(event)" role="switch" tabindex="0" aria-checked="true" aria-label="Emergency Shutdown"></div></div>
                     <div class="clean-row"><span><b>Alert Recipient Email</b><small>Change receiver email anytime</small></span><input id="set-alert-email" class="setting-input" type="email" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}" value="umergujjarg391@gmail.com"></div>
                     <div class="clean-row"><span><b>Last Email Sent</b><small>Last successful alert timestamp</small></span><strong id="last-email-setting" class="last-email-box">No Alerts Sent</strong></div>
                     <button class="clean-btn green" onclick="testEmail()">Test Email</button>
@@ -1930,7 +1893,7 @@ body.light-theme .setting-input,body.light-theme .setting-select{
                         <button class="clean-btn yellow" onclick="exportPDF()">Full PDF Report</button>
                         <button class="clean-btn yellow" onclick="weeklyPDF()">Weekly PDF</button>
                         <button class="clean-btn yellow" onclick="monthlyPDF()">Monthly PDF</button>
-                        <button class="clean-btn blue" onclick="exportCSV()">CSV Event Logs</button>
+                        <button class="clean-btn yellow" onclick="exportCSV()">CSV Event Logs</button>
                         <button class="clean-btn red" onclick="resetEnergy()">Reset Energy</button>
                         <button class="clean-btn red" onclick="clearActivityLogs()">Clear Logs</button>
                     </div>
@@ -1943,7 +1906,7 @@ body.light-theme .setting-input,body.light-theme .setting-select{
                         <button class="clean-btn blue" onclick="testCamera()">Camera</button>
                         <button class="clean-btn blue" onclick="testRelay()">Relay</button>
                         <button class="clean-btn blue" onclick="testGas()">Gas</button>
-                        <button class="clean-btn yellow" onclick="testBuzzer()">Buzzer</button>
+                        <button class="clean-btn blue" onclick="testBuzzer()">Buzzer</button>
                         <button class="clean-btn yellow" onclick="restartService()">Restart Service</button>
                         <button class="clean-btn yellow" onclick="restartPi()">Restart Pi</button>
                         <button class="clean-btn red full" onclick="shutdownPi()">Shutdown Pi</button>
@@ -2004,6 +1967,12 @@ async function checkBackend() {
 
         console.log("ruf.local failed, using IP");
     }
+
+    const cam1 = document.getElementById("camera-stream");
+    if(cam1) cam1.src = API_BASE + "/video_feed?t=" + new Date().getTime();
+
+    const cam2 = document.getElementById("camera-stream-2");
+    if(cam2) cam2.src = API_BASE + "/video_feed?t=" + new Date().getTime();
 }
 
 checkBackend();
@@ -2014,13 +1983,6 @@ function getBackendURL(path){
     return path;
 }
 
-function showSection(id,btn){
-    document.querySelectorAll(".section").forEach(s=>s.classList.remove("active"));
-    document.getElementById(id).classList.add("active");
-    document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));
-    btn.classList.add("active");
-}
-
 function updateTime(){
     document.getElementById("current-time").innerText=new Date().toLocaleTimeString();
 }
@@ -2028,18 +1990,49 @@ setInterval(updateTime,1000); updateTime();
 
 function safeSet(id,val){
     const el=document.getElementById(id);
-    if(el) el.innerText=val;
+    if(el){
+        el.innerText=val;
+        el.classList.remove("is-loading");
+    }
+}
+function animateNumberTo(id,newValue,decimals,suffix){
+    const el=document.getElementById(id);
+    if(!el) return;
+    el.classList.remove("is-loading");
+    const target=Number(newValue);
+    if(isNaN(target)){ el.innerText=newValue+suffix; return; }
+    const current=parseFloat(el.innerText);
+    if(isNaN(current) || current===target){ el.innerText=target.toFixed(decimals)+suffix; return; }
+    const start=performance.now();
+    const duration=300;
+    function step(now){
+        const p=Math.min((now-start)/duration,1);
+        const eased=1-Math.pow(1-p,2);
+        el.innerText=(current+(target-current)*eased).toFixed(decimals)+suffix;
+        if(p<1) requestAnimationFrame(step);
+        else el.innerText=target.toFixed(decimals)+suffix;
+    }
+    requestAnimationFrame(step);
 }
 function safeClass(id,cls){
     const el=document.getElementById(id);
     if(el) el.className=cls;
+}
+function syncToggleAria(el){
+    if(el) el.setAttribute("aria-checked", el.classList.contains("active") ? "true" : "false");
+}
+function handleToggleKeydown(e){
+    if(e.key === "Enter" || e.key === " " || e.key === "Spacebar"){
+        e.preventDefault();
+        e.currentTarget.click();
+    }
 }
 
 function addLog(type,message){
     const time=new Date().toLocaleTimeString();
     const log=document.createElement("div");
     log.className="log-entry";
-    log.innerHTML=`<span class="log-time">${time}</span><span class="log-badge ${type}">${type.toUpperCase()}</span><span>${message}</span>`;
+    log.innerHTML=`<span class="log-time">${time}</span><span class="log-badge ${escapeHtml(type)}">${escapeHtml(String(type).toUpperCase())}</span><span>${escapeHtml(message)}</span>`;
     const box=document.getElementById("logs-container");
     if(!box) return;
     box.insertBefore(log,box.firstChild);
@@ -2056,29 +2049,67 @@ function deviceNotAvailable(){
     showToast("Device not available yet");
     addLog("warning","Device not available yet - relay not installed");
 }
+let relayTogglePending=false;
 function toggleMainRelay(){
+    if(relayTogglePending) return;
     const toggle=document.getElementById("main-relay-toggle");
-    const isOn=toggle.classList.contains("active");
-    const route = isOn ? API_BASE + "/manual_off" : API_BASE + "/manual_on";
+    const wasOn=toggle.classList.contains("active");
+    const wantsOn=!wasOn;
+
+    relayTogglePending=true;
+
+    if(wantsOn){
+        toggle.classList.add("active");
+        safeSet("summary-device","ON");
+        safeSet("device-overlay","ON");
+        safeSet("device-status-2","ON");
+    }else{
+        toggle.classList.remove("active");
+        safeSet("summary-device","OFF");
+        safeSet("device-overlay","OFF");
+        safeSet("device-status-2","OFF");
+    }
+    syncToggleAria(toggle);
+
+    const route = wasOn ? API_BASE + "/manual_off" : API_BASE + "/manual_on";
     fetch(route).then(res=>res.text()).then(result=>{
-        if(result.includes("ON")){
+        const isOn = result.includes("ON");
+        if(isOn){
             toggle.classList.add("active");
             addLog("success","Bulb turned ON manually");
         }else{
             toggle.classList.remove("active");
             addLog("primary","Bulb turned OFF manually");
         }
+        syncToggleAria(toggle);
+        relayTogglePending=false;
         updateSystem();
     }).catch(()=>{
+        if(wantsOn) toggle.classList.remove("active");
+        else toggle.classList.add("active");
+        syncToggleAria(toggle);
+        relayTogglePending=false;
         showToast("Backend connection error");
         addLog("danger","Backend connection error");
     });
 }
 
 let previousGas="",previousHuman="",previousDevice="",previousWorker="";
+let systemStatusSeq=0;
+
+function humanStatusColorClass(human){
+    const h = String(human || "").toLowerCase();
+    if(h.includes("error")) return "danger";
+    if(h.includes("unavailable")) return "danger";
+    if(h.includes("disabled")) return "warning";
+    if(h === "human detected") return "success";
+    return "";
+}
 
 function updateSystem(){
+    const seq = ++systemStatusSeq;
     fetch(API_BASE + "/system_status").then(res=>res.json()).then(data=>{
+        if(seq !== systemStatusSeq) return;
         const gas=data.gas||"Unknown";
         const human=data.human||"Unknown";
         const energy=data.energy||"Unknown";
@@ -2092,7 +2123,7 @@ function updateSystem(){
         const humanCount=human==="Human Detected"?"1":"0";
         safeSet("human-count",humanCount);
         safeSet("summary-human",humanCount);
-        safeSet("summary-kwh",energyKwh+" kWh");
+        animateNumberTo("summary-kwh",energyKwh,2," kWh");
         safeSet("summary-device",device);
         safeSet("summary-gas",gas);
 
@@ -2109,16 +2140,16 @@ function updateSystem(){
         safeSet("worker-activity-2",worker);
         safeSet("energy-saved",energySaved+" min");
         safeSet("energy-saved-2",energySaved+" min");
-        safeSet("energy-kwh",energyKwh+" kWh");
-        safeSet("energy-kwh-2",energyKwh+" kWh");
-        safeSet("big-energy-kwh",energyKwh+" kWh");
-        safeSet("big-energy-kwh-2",energyKwh+" kWh");
+        animateNumberTo("energy-kwh",energyKwh,2," kWh");
+        animateNumberTo("energy-kwh-2",energyKwh,2," kWh");
+        animateNumberTo("big-energy-kwh",energyKwh,2," kWh");
+        animateNumberTo("big-energy-kwh-2",energyKwh,2," kWh");
         safeSet("last-check",new Date().toLocaleTimeString());
 
         safeClass("monitoring-status",monitoring==="Active"?"sensor-value success":"sensor-value danger");
         safeClass("monitoring-status-2",monitoring==="Active"?"sensor-value success":"sensor-value danger");
-        safeClass("human-status",human==="Human Detected"?"value success":"value danger");
-        safeClass("human-status-2",human==="Human Detected"?"sensor-value success":"sensor-value danger");
+        safeClass("human-status","value " + humanStatusColorClass(human));
+        safeClass("human-status-2","sensor-value " + humanStatusColorClass(human));
         safeClass("device-overlay",device.includes("ON")?"value success":"value danger");
         safeClass("device-status-2",device.includes("ON")?"sensor-value success":"sensor-value danger");
         safeClass("energy-status",energy==="Emergency"?"sensor-value danger":energy.includes("Waiting")?"sensor-value warning":"sensor-value primary");
@@ -2146,6 +2177,7 @@ function updateSystem(){
         if(toggle){
             if(device.includes("ON")) toggle.classList.add("active");
             else toggle.classList.remove("active");
+            syncToggleAria(toggle);
         }
 
         if(previousGas && previousGas!==gas) addLog(gas==="Gas Detected"?"danger":"success","Gas status changed: "+gas);
@@ -2155,6 +2187,7 @@ function updateSystem(){
 
         previousGas=gas;previousHuman=human;previousDevice=device;previousWorker=worker;
     }).catch(()=>{
+        if(seq !== systemStatusSeq) return;
         addLog("danger","Backend Disconnected");
 
         safeSet("monitoring-status","Disconnected");
@@ -2183,12 +2216,25 @@ function updateSystem(){
             cameraStatus.innerHTML = "● OFFLINE";
             cameraStatus.className = "live-badge danger";
         }
+        const cameraStatus2 = document.getElementById("camera-status-2");
+        if(cameraStatus2){
+            cameraStatus2.innerHTML = "● OFFLINE";
+            cameraStatus2.className = "live-badge danger";
+        }
     });
 }
 
+let lastCameraStatus = null;
+function reconnectCameraStreams(){
+    const cam1 = document.getElementById("camera-stream");
+    if(cam1) cam1.src = API_BASE + "/video_feed?t=" + new Date().getTime();
+    const cam2 = document.getElementById("camera-stream-2");
+    if(cam2) cam2.src = API_BASE + "/video_feed?t=" + new Date().getTime();
+}
 function updateCameraStatus(){
     fetch(API_BASE + "/camera_status").then(res=>res.json()).then(data=>{
         const badge = document.getElementById("camera-status");
+        const badge2 = document.getElementById("camera-status-2");
         const text = document.getElementById("camera-status-text");
 
         if(data.status === "Online"){
@@ -2196,40 +2242,83 @@ function updateCameraStatus(){
                 badge.innerHTML = "● LIVE";
                 badge.className = "live-badge";
             }
+            if(badge2){
+                badge2.innerHTML = "● LIVE";
+                badge2.className = "live-badge";
+            }
             if(text){
                 text.innerHTML = "Online";
                 text.className = "success";
             }
+            if(lastCameraStatus !== "Online"){
+                reconnectCameraStreams();
+            }
+            lastCameraStatus = "Online";
         }else{
             if(badge){
                 badge.innerHTML = "● OFFLINE";
                 badge.className = "live-badge danger";
             }
+            if(badge2){
+                badge2.innerHTML = "● OFFLINE";
+                badge2.className = "live-badge danger";
+            }
             if(text){
                 text.innerHTML = "Offline";
                 text.className = "danger";
             }
+            lastCameraStatus = "Offline";
         }
     }).catch(()=>{
         const badge = document.getElementById("camera-status");
+        const badge2 = document.getElementById("camera-status-2");
         const text = document.getElementById("camera-status-text");
 
         if(badge){
             badge.innerHTML = "● OFFLINE";
             badge.className = "live-badge danger";
         }
+        if(badge2){
+            badge2.innerHTML = "● OFFLINE";
+            badge2.className = "live-badge danger";
+        }
         if(text){
             text.innerHTML = "Offline";
             text.className = "danger";
         }
+        lastCameraStatus = "Offline";
     });
+}
+function handleCameraError(){
+    const img = document.getElementById("camera-stream");
+    const offline = document.getElementById("camera-offline");
+    if(img) img.style.display = "none";
+    if(offline) offline.style.display = "flex";
+}
+function handleCameraLoad(){
+    const img = document.getElementById("camera-stream");
+    const offline = document.getElementById("camera-offline");
+    if(img) img.style.display = "";
+    if(offline) offline.style.display = "none";
+}
+function handleCameraError2(){
+    const img = document.getElementById("camera-stream-2");
+    const offline = document.getElementById("camera-offline-2");
+    if(img) img.style.display = "none";
+    if(offline) offline.style.display = "flex";
+}
+function handleCameraLoad2(){
+    const img = document.getElementById("camera-stream-2");
+    const offline = document.getElementById("camera-offline-2");
+    if(img) img.style.display = "";
+    if(offline) offline.style.display = "none";
 }
 function updatePiHealth(){
     fetch(API_BASE + "/pi_health").then(res=>res.json()).then(data=>{
-        safeSet("cpu-temp",data.temp+" °C");
-        safeSet("cpu-usage",data.cpu+" %");
-        safeSet("ram-usage",data.ram+" %");
-        safeSet("disk-usage",data.disk+" %");
+        animateNumberTo("cpu-temp",data.temp,1," °C");
+        animateNumberTo("cpu-usage",data.cpu,0," %");
+        animateNumberTo("ram-usage",data.ram,0," %");
+        animateNumberTo("disk-usage",data.disk,0," %");
         safeSet("uptime",data.uptime);
         const internet=document.getElementById("internet-status");
         if(internet) internet.innerHTML=navigator.onLine?"<span class='success'>Connected</span>":"<span class='danger'>Offline</span>";
@@ -2242,11 +2331,6 @@ function updatePiHealth(){
         const internet=document.getElementById("internet-status");
         if(internet) internet.innerHTML="<span class='danger'>Offline</span>";
     });
-}
-function shutdownPi(){
-    if(confirm("Shutdown Raspberry Pi?")){
-        fetch(API_BASE + "/shutdown_pi").then(res=>res.text()).then(data=>alert(data));
-    }
 }
 function resetGasAlert(){
     fetch(API_BASE + "/reset_gas").then(res=>res.text()).then(data=>{
@@ -2313,6 +2397,8 @@ function updateWeeklyEnergyChart(){
             0.001
         );
 
+        const decimals = maxHours < 1 ? 2 : 1;
+
         const maxHeight = 130;
         const baseY = 170;
 
@@ -2327,6 +2413,17 @@ function updateWeeklyEnergyChart(){
             sat:260,
             sun:302
         };
+
+        const axisTicks = [
+            { id: "axis-y-0", height: 0 },
+            { id: "axis-y-1", height: baseY - 140 },
+            { id: "axis-y-2", height: baseY - 90 },
+            { id: "axis-y-3", height: maxHeight }
+        ];
+        axisTicks.forEach(tick => {
+            const el = document.getElementById(tick.id);
+            if(el) el.textContent = ((tick.height / maxHeight) * maxHours).toFixed(decimals) + "h";
+        });
 
         days.forEach(item=>{
 
@@ -2350,7 +2447,7 @@ function updateWeeklyEnergyChart(){
             const txt = document.getElementById("txt-" + day);
 
             if(txt){
-                txt.textContent = value.toFixed(2);
+                txt.textContent = value.toFixed(decimals);
                 txt.setAttribute("y", y - 5);
             }
 
@@ -2375,10 +2472,6 @@ setInterval(updateCameraStatus,2000);
 setInterval(updatePiHealth,2000);
 updateSystem(); updateActivityChart(); updateWeeklyEnergyChart(); updateCameraStatus(); updatePiHealth();
 
-setTimeout(()=>{
-    const img=document.getElementById("camera-stream");
-    if(img) img.src=API_BASE + "/video_feed?t=" + new Date().getTime();
-},5000);
 function logout(){
     localStorage.removeItem("loggedIn");
     sessionStorage.removeItem("loggedIn");
@@ -2413,80 +2506,9 @@ setInterval(async ()=>{
 },2000);
 
 /* ===== RELAY DEVICE MANAGER JS ===== */
-function renderRelayDevices(devices){
-    const box=document.getElementById("relay-device-list");
-    if(!box) return;
-    box.innerHTML="";
-    devices.forEach(d=>{
-        const available = d.available || d.enabled;
-        const item=document.createElement("div");
-        item.className="relay-list-item";
-        item.innerHTML=`
-            <div>
-                <strong>Relay ${d.relay} → ${d.name}</strong>
-                <small>${d.power}W • ${d.status || "OFF"}</small>
-            </div>
-            <span class="relay-badge ${available ? "online":"pending"}">${available ? "Available":"Not Installed"}</span>
-        `;
-        box.appendChild(item);
-    });
-}
-function loadRelayDevices(){
-    fetch(API_BASE + "/devices")
-    .then(r=>r.json())
-    .then(renderRelayDevices)
-    .catch(()=>console.warn("Relay devices not loaded"));
-}
-function addRelayDevice(){
-    const relayNo=parseInt(document.getElementById("relay-number").value);
-    const name=document.getElementById("relay-device-name").value || "Device";
-    const power=parseInt(document.getElementById("relay-device-power").value || 100);
-    fetch(API_BASE + "/add_device",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({relay:relayNo,name:name,power:power})
-    })
-    .then(r=>r.json())
-    .then(d=>{
-        renderRelayDevices(d.devices || []);
-        showToast("Relay "+relayNo+" saved as "+name);
-        addLog("success","Relay "+relayNo+" configured as "+name);
-        loadProfessionalSettings();
-    })
-    .catch(()=>{
-        showToast("Relay device save failed");
-        addLog("danger","Relay device save failed");
-    });
-}
-function removeRelayDevice(){
-    const relayNo=parseInt(document.getElementById("relay-number").value);
-    fetch(API_BASE + "/remove_device/" + relayNo)
-    .then(r=>r.json())
-    .then(d=>{
-        renderRelayDevices(d.devices || []);
-        showToast("Relay "+relayNo+" removed");
-        addLog("warning","Relay "+relayNo+" marked as not installed");
-    })
-    .catch(()=>showToast("Remove failed"));
-}
-function testSelectedRelay(){
-    const relayNo=parseInt(document.getElementById("relay-number").value);
-    fetch(API_BASE + "/test_relay/" + relayNo)
-    .then(r=>r.json())
-    .then(d=>{
-        showToast(d.status || "Relay test completed");
-        addLog("info",d.status || "Relay test completed");
-    })
-    .catch(()=>showToast("Relay test failed"));
-}
-setTimeout(loadRelayDevices,800);
 
 
 /* ===== FINAL BUTTON FIXES ===== */
-function backendURL(path){
-    return API_BASE + path;
-}
-
 function notifyUser(message, type="info"){
     if(typeof showToast === "function"){
         showToast(message);
@@ -2498,46 +2520,8 @@ function notifyUser(message, type="info"){
     }
 }
 
-function toggleCamera(){
-    fetch(backendURL("/toggle_camera"))
-    .then(r => r.json())
-    .then(d => {
-        notifyUser("Camera: " + (d.camera || "Updated"), "success");
-        if(typeof updateCameraStatus === "function") updateCameraStatus();
-        if(typeof loadProfessionalSettings === "function") loadProfessionalSettings();
-    })
-    .catch(() => notifyUser("Camera control failed", "danger"));
-}
-
-function exportPDF(){
-    window.open(backendURL("/export_pdf"), "_blank");
-}
-
-function exportCSV(){
-    window.open(backendURL("/export_csv"), "_blank");
-}
-
-function resetEnergy(){
-    if(!confirm("Reset energy statistics?")) return;
-    fetch(backendURL("/reset_energy"))
-    .then(r => r.json())
-    .then(d => {
-        notifyUser(d.status || "Energy statistics reset", "success");
-        if(typeof updateSystem === "function") updateSystem();
-    })
-    .catch(() => notifyUser("Reset energy failed", "danger"));
-}
-
-function clearActivityLogs(){
-    if(!confirm("Clear activity logs?")) return;
-    fetch(backendURL("/clear_activity"))
-    .then(r => r.json())
-    .then(d => notifyUser(d.status || "Activity logs cleared", "success"))
-    .catch(() => notifyUser("Clear logs failed", "danger"));
-}
-
 function testHardware(endpoint){
-    fetch(backendURL("/" + endpoint))
+    fetch(getBackendURL("/" + endpoint))
     .then(r => r.json())
     .then(d => notifyUser(d.status || "Hardware test completed", "success"))
     .catch(() => notifyUser("Hardware test failed", "danger"));
@@ -2559,92 +2543,67 @@ function testBuzzer(){
     testHardware("test_buzzer");
 }
 
-function restartService(){
-    if(!confirm("Restart Flask service?")) return;
-    fetch(API_BASE + "/restart_service")
-    .then(() => notifyUser("Service restarting...", "warning"))
-    .catch(() => notifyUser("Restart service failed", "danger"));
-}
-
 function restartPi(){
     if(!confirm("Restart Raspberry Pi?")) return;
     fetch(API_BASE + "/restart_pi")
-    .then(() => notifyUser("Raspberry Pi restarting...", "warning"))
+    .then(res => {
+        if(res.ok) notifyUser("Raspberry Pi restarting...", "warning");
+        else notifyUser("Restart Pi failed: server returned an error", "danger");
+    })
     .catch(() => notifyUser("Restart Pi failed", "danger"));
 }
 
 function shutdownPi(){
     if(!confirm("Shutdown Raspberry Pi?")) return;
     fetch(API_BASE + "/shutdown_pi")
-    .then(() => notifyUser("Raspberry Pi shutting down...", "warning"))
+    .then(res => {
+        if(res.ok) notifyUser("Raspberry Pi shutting down...", "warning");
+        else notifyUser("Shutdown Pi failed: server returned an error", "danger");
+    })
     .catch(() => notifyUser("Shutdown Pi failed", "danger"));
-}
-
-function saveProfessionalSettings(){
-    const getVal = (id, fallback="") => {
-        const el = document.getElementById(id);
-        return el ? el.value : fallback;
-    };
-    const isOn = (id) => {
-        const el = document.getElementById(id);
-        return el ? el.classList.contains("active") : false;
-    };
-
-    const payload = {
-        system_mode: getVal("set-system-mode", "Office"),
-        auto_off_delay: parseInt(getVal("set-auto-off", "20")),
-        dashboard_refresh_rate: parseInt(getVal("set-refresh", "2")),
-        human_detection: isOn("set-human"),
-        worker_detection: isOn("set-worker"),
-        ai_sensitivity: getVal("set-ai-sensitivity", "Medium"),
-        camera_enabled: isOn("set-camera"),
-        camera_resolution: getVal("set-camera-resolution", "720p"),
-        camera_refresh_rate: parseInt(getVal("set-camera-refresh", "15")),
-        gas_detection: isOn("set-gas"),
-        buzzer: isOn("set-buzzer"),
-        email_alerts: isOn("set-email"),
-        emergency_shutdown: isOn("set-emergency"),
-        auto_logout_minutes: parseInt(getVal("set-auto-logout", "15")),
-        theme: getVal("set-theme", "Dark")
-    };
-
-    fetch(backendURL("/save_settings"), {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(payload)
-    })
-    .then(r => r.json())
-    .then(() => {
-        notifyUser("Settings saved successfully", "success");
-        if(typeof loadProfessionalSettings === "function") loadProfessionalSettings();
-        if(typeof updateSystem === "function") updateSystem();
-    })
-    .catch(() => notifyUser("Settings save failed", "danger"));
 }
 
 function setSettingToggle(id){
     const el = document.getElementById(id);
     if(el && !el.dataset.finalBound){
         el.dataset.finalBound = "1";
-        el.onclick = () => el.classList.toggle("active");
+        el.onclick = () => {
+            el.classList.toggle("active");
+            syncToggleAria(el);
+        };
     }
 }
 
 ["set-human","set-worker","set-camera","set-gas","set-buzzer","set-email","set-emergency"].forEach(setSettingToggle);
+
+function escapeHtml(value){
+    return String(value ?? "").replace(/[&<>"']/g, c => ({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+    }[c]));
+}
 
 function renderRelayDevices(devices){
     const box = document.getElementById("relay-device-list");
     if(!box) return;
 
     box.innerHTML = "";
-    (devices || []).forEach(d => {
+
+    if(!devices || devices.length === 0){
+        const empty = document.createElement("div");
+        empty.className = "relay-empty";
+        empty.textContent = "No relays configured yet — add one above.";
+        box.appendChild(empty);
+        return;
+    }
+
+    devices.forEach(d => {
         const available = d.available || d.enabled;
         const item = document.createElement("div");
         item.className = "relay-list-item";
         item.innerHTML = `
             <div>
-                <strong>Relay ${d.relay} → ${d.name}</strong>
-                <small>${d.power}W • ${d.status || "OFF"}</small>
+                <strong>Relay ${escapeHtml(d.relay)} → ${escapeHtml(d.name)}</strong>
+                <small>${escapeHtml(d.power)}W • ${escapeHtml(d.status || "OFF")}</small>
             </div>
             <span class="relay-badge ${available ? "online":"pending"}">${available ? "Available":"Not Installed"}</span>
         `;
@@ -2653,24 +2612,41 @@ function renderRelayDevices(devices){
 }
 
 function loadRelayDevices(){
-    fetch(backendURL("/devices"))
-    .then(r => r.json())
+    fetch(getBackendURL("/devices"))
+    .then(r => {
+        if(!r.ok) throw new Error("Devices request failed");
+        return r.json();
+    })
     .then(renderRelayDevices)
-    .catch(() => console.warn("Relay devices not loaded"));
+    .catch(() => {
+        console.warn("Relay devices not loaded");
+        const box = document.getElementById("relay-device-list");
+        if(box) box.innerHTML = '<div class="relay-empty">Could not load relay devices — check the connection and reopen Settings.</div>';
+    });
 }
 
 function addRelayDevice(){
     const relayNo = parseInt(document.getElementById("relay-number").value);
-    const name = document.getElementById("relay-device-name").value || "Device";
-    const power = parseInt(document.getElementById("relay-device-power").value || 100);
+    const name = document.getElementById("relay-device-name").value.trim() || "Device";
+    const power = parseInt(document.getElementById("relay-device-power").value);
 
-    fetch(backendURL("/add_device"), {
+    if(!Number.isInteger(power) || power <= 0){
+        notifyUser("Power (watts) must be a positive number", "danger");
+        return;
+    }
+
+    if(relayNo === 1 && !confirm("Relay 1 is normally the main device relay. Are you sure you want to overwrite its configuration?")){
+        return;
+    }
+
+    fetch(getBackendURL("/add_device"), {
         method: "POST",
         headers: {"Content-Type":"application/json"},
         body: JSON.stringify({relay: relayNo, name, power})
     })
-    .then(r => r.json())
-    .then(d => {
+    .then(r => r.json().then(d => ({ok: r.ok, d})))
+    .then(({ok, d}) => {
+        if(!ok){ notifyUser(d.error || d.status || "Relay device save failed", "danger"); return; }
         renderRelayDevices(d.devices || []);
         notifyUser("Relay " + relayNo + " saved as " + name, "success");
     })
@@ -2679,9 +2655,15 @@ function addRelayDevice(){
 
 function removeRelayDevice(){
     const relayNo = parseInt(document.getElementById("relay-number").value);
-    fetch(backendURL("/remove_device/" + relayNo))
-    .then(r => r.json())
-    .then(d => {
+
+    if(relayNo === 1 && !confirm("Relay 1 is normally the main device relay. Are you sure you want to remove it?")){
+        return;
+    }
+
+    fetch(getBackendURL("/remove_device/" + relayNo))
+    .then(r => r.json().then(d => ({ok: r.ok, d})))
+    .then(({ok, d}) => {
+        if(!ok){ notifyUser(d.error || d.status || "Remove relay failed", "danger"); return; }
         renderRelayDevices(d.devices || []);
         notifyUser("Relay " + relayNo + " removed", "warning");
     })
@@ -2690,162 +2672,54 @@ function removeRelayDevice(){
 
 function testSelectedRelay(){
     const relayNo = parseInt(document.getElementById("relay-number").value);
-    fetch(backendURL("/test_relay/" + relayNo))
-    .then(r => r.json())
-    .then(d => notifyUser(d.status || "Relay test completed", "success"))
-    .catch(() => notifyUser("Relay test failed", "danger"));
-}
-
-function loadProfessionalSettings(){
-    fetch(backendURL("/get_settings"))
-    .then(r => r.json())
-    .then(s => {
-        const setVal = (id, val) => {
-            const el = document.getElementById(id);
-            if(el && val !== undefined && val !== null) el.value = val;
-        };
-        const setToggle = (id, val) => {
-            const el = document.getElementById(id);
-            if(!el) return;
-            if(val) el.classList.add("active");
-            else el.classList.remove("active");
-        };
-
-        setVal("set-system-mode", s.system_mode);
-        setVal("set-auto-off", s.auto_off_delay);
-        setVal("set-refresh", s.dashboard_refresh_rate);
-        setVal("set-ai-sensitivity", s.ai_sensitivity);
-        setVal("set-camera-resolution", s.camera_resolution);
-        setVal("set-camera-refresh", s.camera_refresh_rate);
-        setVal("set-auto-logout", s.auto_logout_minutes);
-        setVal("set-theme", s.theme);
-
-        setToggle("set-human", s.human_detection);
-        setToggle("set-worker", s.worker_detection);
-        setToggle("set-camera", s.camera_enabled);
-        setToggle("set-gas", s.gas_detection);
-        setToggle("set-buzzer", s.buzzer);
-        setToggle("set-email", s.email_alerts);
-        setToggle("set-emergency", s.emergency_shutdown);
-
-        if(s.devices) renderRelayDevices(s.devices);
+    fetch(getBackendURL("/test_relay/" + relayNo))
+    .then(r => r.json().then(d => ({ok: r.ok, d})))
+    .then(({ok, d}) => {
+        if(!ok){ notifyUser(d.error || d.status || "Relay test failed", "danger"); return; }
+        notifyUser(d.status || "Relay test completed", "success");
     })
-    .catch(() => console.warn("Settings not loaded"));
+    .catch(() => notifyUser("Relay test failed", "danger"));
 }
 
 setTimeout(() => {
     loadProfessionalSettings();
     loadRelayDevices();
-}, 600);
+}, 900);
 
 
 /* ===== FINAL EMAIL + REPORT + THEME FIXES ===== */
-function applyTheme(theme){
-    if(theme === "Light"){
-        document.body.classList.add("light-theme");
-    }else{
-        document.body.classList.remove("light-theme");
-    }
-}
-
-function weeklyPDF(){
-    window.open(getBackendURL("/weekly_pdf_report"), "_blank");
-}
-
-function monthlyPDF(){
-    window.open(getBackendURL("/monthly_pdf_report"), "_blank");
-}
-
-function testEmail(){
-    fetch(getBackendURL("/test_email"))
-    .then(r=>r.json())
-    .then(d=>{
-        showToast(d.status || "Email checked");
-        const last = document.getElementById("last-email-setting");
-        if(last && d.last_email){ last.innerText = d.last_email; }
-    })
-    .catch(()=>showToast("Test email failed"));
-}
-
-function exportPDF(){
-    window.open(getBackendURL("/export_pdf"), "_blank");
-}
-
-function exportCSV(){
-    window.open(getBackendURL("/export_csv"), "_blank");
-}
-
 function resetEnergy(){
     if(!confirm("Reset energy statistics?")) return;
     fetch(API_BASE + "/reset_energy")
-    .then(r=>r.json())
-    .then(d=>showToast(d.status || "Energy reset"))
+    .then(r=>r.json().then(d=>({ok:r.ok, d})))
+    .then(({ok,d})=>{
+        if(!ok){ showToast(d.error || d.status || "Reset energy failed"); return; }
+        showToast(d.status || "Energy reset");
+    })
     .catch(()=>showToast("Reset energy failed"));
 }
 
 function clearActivityLogs(){
     if(!confirm("Clear activity logs?")) return;
     fetch(API_BASE + "/clear_activity")
-    .then(r=>r.json())
-    .then(d=>showToast(d.status || "Logs cleared"))
+    .then(r=>r.json().then(d=>({ok:r.ok, d})))
+    .then(({ok,d})=>{
+        if(!ok){ showToast(d.error || d.status || "Clear logs failed"); return; }
+        showToast(d.status || "Logs cleared");
+    })
     .catch(()=>showToast("Clear logs failed"));
 }
-
-/* Patch save/load settings for email and theme */
-const __oldSaveProfessionalSettings = window.saveProfessionalSettings;
-window.saveProfessionalSettings = function(){
-    const getVal = (id, fallback="") => {
-        const el = document.getElementById(id);
-        return el ? el.value : fallback;
-    };
-    const isOn = (id) => {
-        const el = document.getElementById(id);
-        return el ? el.classList.contains("active") : false;
-    };
-
-    const payload = {
-        system_mode: getVal("set-system-mode", "Office"),
-        auto_off_delay: parseInt(getVal("set-auto-off", "20")),
-        dashboard_refresh_rate: parseInt(getVal("set-refresh", "2")),
-        human_detection: isOn("set-human"),
-        worker_detection: isOn("set-worker"),
-        ai_sensitivity: getVal("set-ai-sensitivity", "Medium"),
-        camera_enabled: isOn("set-camera"),
-        camera_resolution: getVal("set-camera-resolution", "720p"),
-        camera_refresh_rate: parseInt(getVal("set-camera-refresh", "15")),
-        gas_detection: isOn("set-gas"),
-        buzzer: isOn("set-buzzer"),
-        email_alerts: isOn("set-email"),
-        emergency_shutdown: isOn("set-emergency"),
-        auto_logout_minutes: parseInt(getVal("set-auto-logout", "15")),
-        theme: getVal("set-theme", "Dark"),
-        alert_email_to: getVal("set-alert-email", "umergujjarg391@gmail.com")
-    };
-
-    fetch(API_BASE + "/save_settings", {
-        method: "POST",
-        headers: {"Content-Type":"application/json"},
-        body: JSON.stringify(payload)
-    })
-    .then(r=>r.json())
-    .then(d=>{
-        showToast("Settings saved successfully");
-        applyTheme(payload.theme);
-        if(d.settings && d.settings.last_email_sent){
-            const last = document.getElementById("last-email-setting");
-            if(last) last.innerText = d.settings.last_email_sent;
-        }
-    })
-    .catch(()=>showToast("Settings save failed"));
-};
 
 const __oldLoadProfessionalSettings = window.loadProfessionalSettings;
 window.loadProfessionalSettings = function(){
     fetch(API_BASE + "/get_settings")
-    .then(r=>r.json())
+    .then(r=>{
+        if(!r.ok) throw new Error("Settings request failed");
+        return r.json();
+    })
     .then(s=>{
         const setVal = (id,val)=>{ const el=document.getElementById(id); if(el && val!==undefined && val!==null) el.value=val; };
-        const setToggle = (id,val)=>{ const el=document.getElementById(id); if(!el)return; val ? el.classList.add("active") : el.classList.remove("active"); };
+        const setToggle = (id,val)=>{ const el=document.getElementById(id); if(!el)return; val ? el.classList.add("active") : el.classList.remove("active"); syncToggleAria(el); };
 
         setVal("set-system-mode", s.system_mode);
         setVal("set-auto-off", s.auto_off_delay);
@@ -2873,56 +2747,18 @@ window.loadProfessionalSettings = function(){
             renderRelayDevices(s.devices);
         }
     })
-    .catch(()=>console.warn("Settings not loaded"));
+    .catch(()=>{
+        console.warn("Settings not loaded");
+        showToast("Could not load settings from the server");
+    });
 };
-
-setTimeout(()=>{ if(window.loadProfessionalSettings) loadProfessionalSettings(); }, 900);
 
 
 
 /* ===== FINAL HAMBURGER MENU JS ===== */
-function toggleMobileMenu(){
-    document.body.classList.toggle("menu-open");
-}
-function closeMobileMenu(){
-    document.body.classList.remove("menu-open");
-}
-
-const __oldShowSectionHamburger = window.showSection;
-window.showSection = function(id, btn){
-    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-    const sec = document.getElementById(id);
-    if(sec) sec.classList.add('active');
-
-    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-    if(btn) btn.classList.add('active');
-
-    if(window.innerWidth <= 1024){
-        closeMobileMenu();
-        setTimeout(()=>window.scrollTo({top:0, behavior:"smooth"}), 60);
-    }
-};
 
 
 /* ===== FINAL NO STUCK BLUR JS FIX ===== */
-document.addEventListener("DOMContentLoaded", function(){
-    document.body.classList.remove("menu-open");
-});
-
-function openMobileMenu(){
-    document.body.classList.add("menu-open");
-}
-
-function closeMobileMenu(){
-    document.body.classList.remove("menu-open");
-}
-
-function toggleMobileMenu(){
-    document.body.classList.toggle("menu-open");
-}
-
-
-/* ===== FINAL HAMBURGER HIDE/SHOW BEHAVIOR ===== */
 document.addEventListener("DOMContentLoaded", function(){
     document.body.classList.remove("menu-open");
 });
@@ -2957,8 +2793,11 @@ function validateEmailAddress(email){
 function restartService(){
     if(!confirm("Restart fyp.service now? Dashboard may disconnect for a few seconds.")) return;
     fetch(getBackendURL("/restart_service"))
-    .then(r=>r.json())
-    .then(d=>showToast(d.status || "Restarting service..."))
+    .then(r => r.json().catch(() => ({})).then(d => ({ok: r.ok, d})))
+    .then(({ok, d}) => {
+        if(ok) showToast(d.status || "Restarting service...");
+        else showToast(d.status || d.error || "Restart service failed: server returned an error");
+    })
     .catch(()=>showToast("Restart service failed"));
 }
 
@@ -2970,90 +2809,10 @@ function applyTheme(theme){
     }
 }
 
-function testEmail(){
-    const emailEl = document.getElementById("set-alert-email");
-    const email = emailEl ? emailEl.value.trim() : "";
-    if(!validateEmailAddress(email)){
-        showToast("Invalid email address");
-        if(emailEl) emailEl.focus();
-        return;
-    }
-
-    // save settings first so backend uses latest receiver
-    if(window.saveProfessionalSettings){
-        saveProfessionalSettings(false);
-    }
-
-    setTimeout(()=>{
-        fetch(getBackendURL("/test_email"))
-        .then(r=>r.json())
-        .then(d=>{
-            if(d.error){ showToast(d.error); return; }
-            showToast(d.status || "Test email sent");
-            const last = document.getElementById("last-email-setting");
-            if(last && d.last_email){ last.innerText = d.last_email; }
-        })
-        .catch(()=>showToast("Test email failed"));
-    }, 500);
-}
-
 function weeklyPDF(){ window.open(getBackendURL("/weekly_pdf_report"), "_blank"); }
 function monthlyPDF(){ window.open(getBackendURL("/monthly_pdf_report"), "_blank"); }
 function exportPDF(){ window.open(getBackendURL("/full_pdf_report"), "_blank"); }
 function exportCSV(){ window.open(getBackendURL("/export_csv"), "_blank"); }
-
-/* Better save settings with email validation and optional toast */
-window.saveProfessionalSettings = function(showMsg=true){
-    const getVal = (id, fallback="") => {
-        const el = document.getElementById(id);
-        return el ? el.value : fallback;
-    };
-    const isOn = (id) => {
-        const el = document.getElementById(id);
-        return el ? el.classList.contains("active") : false;
-    };
-
-    const email = getVal("set-alert-email", "").trim();
-    if(!validateEmailAddress(email)){
-        showToast("Invalid email address");
-        const emailEl = document.getElementById("set-alert-email");
-        if(emailEl) emailEl.focus();
-        return;
-    }
-
-    const payload = {
-        system_mode: getVal("set-system-mode", "Office"),
-        auto_off_delay: parseInt(getVal("set-auto-off", "20")),
-        dashboard_refresh_rate: parseInt(getVal("set-refresh", "2")),
-        human_detection: isOn("set-human"),
-        worker_detection: isOn("set-worker"),
-        ai_sensitivity: getVal("set-ai-sensitivity", "Medium"),
-        camera_enabled: isOn("set-camera"),
-        camera_resolution: getVal("set-camera-resolution", "720p"),
-        camera_refresh_rate: parseInt(getVal("set-camera-refresh", "15")),
-        gas_detection: isOn("set-gas"),
-        buzzer: isOn("set-buzzer"),
-        email_alerts: isOn("set-email"),
-        emergency_shutdown: isOn("set-emergency"),
-        auto_logout_minutes: parseInt(getVal("set-auto-logout", "15")),
-        theme: getVal("set-theme", "Dark"),
-        alert_email_to: email
-    };
-
-    fetch(getBackendURL("/save_settings"), {
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify(payload)
-    })
-    .then(r=>r.json())
-    .then(d=>{
-        if(d.error || d.message === "Invalid email address"){ showToast(d.message || d.error); return; }
-        applyTheme(payload.theme);
-        if(showMsg) showToast("Settings saved successfully");
-    })
-    .catch(()=>showToast("Settings save failed"));
-};
-
 
 /* ===== FINAL SAVE EMAIL FIX PATCH ===== */
 window.saveProfessionalSettings = function(showMsg=true){
@@ -3124,14 +2883,14 @@ window.testEmail = function(){
     .then(()=>{
         return fetch(getBackendURL("/test_email"));
     })
-    .then(r=>r.json())
-    .then(d=>{
-        if(d.error){ showToast(d.error); return; }
+    .then(r=>r.json().then(d=>({ok:r.ok, d})))
+    .then(({ok, d})=>{
+        if(!ok || d.error){ showToast(d.error || "Test email failed"); return; }
         showToast(d.status || "Test email sent");
         const last = document.getElementById("last-email-setting");
         if(last && d.last_email){ last.innerText = d.last_email; }
     })
-    .catch(()=>{});
+    .catch(()=>showToast("Test email failed"));
 };
 // Auto Logout After 15 Minutes Inactivity
 let logoutTimer;
@@ -3141,6 +2900,7 @@ function resetTimer() {
 
     logoutTimer = setTimeout(() => {
         localStorage.removeItem("loggedIn");
+        sessionStorage.removeItem("loggedIn");
         window.location.href = "login.html";
     }, 15 * 60 * 1000); // 15 minutes
 }
