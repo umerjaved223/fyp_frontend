@@ -484,6 +484,71 @@ button svg{width:20px;height:20px;vertical-align:middle;margin-right:8px}
     }
 }
 
+/* ===== PREMIUM UI/UX LAYER (CSS-only, preserve behavior/logic) ===== */
+:root{
+    --ease-smooth:cubic-bezier(.16,1,.3,1);
+}
+html{scroll-behavior:smooth}
+
+/* Premium card micro-elevation */
+.login-shell,
+.login-card{
+    transform:translateZ(0);
+}
+.login-card{
+    transition:transform var(--dur-med) var(--ease),
+                box-shadow var(--dur-med) var(--ease),
+                border-color var(--dur-med) var(--ease);
+}
+.login-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 42px rgba(217,70,239,.28), inset 0 0 0 1px rgba(255,255,255,.06);
+}
+
+/* Buttons: subtle sheen */
+button{
+    position:relative;
+    overflow:hidden;
+}
+button::after{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    background:linear-gradient(120deg, transparent 20%, rgba(255,255,255,.22) 35%, transparent 55%);
+    transform:translateX(-120%);
+    transition:transform 450ms var(--ease-smooth);
+    pointer-events:none;
+}
+button:hover::after{
+    transform:translateX(120%);
+}
+
+/* Premium toast animations (toast is still shown/hidden by existing JS) */
+#login-toast{
+    opacity:0;
+    transition:opacity 220ms var(--ease), transform 220ms var(--ease);
+    transform:translateY(-6px);
+}
+#login-toast[style*="display: block"]{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* Input polish */
+input::placeholder{
+    color:#aeb8d8;
+}
+input:focus::placeholder{
+    color:#d0dcff;
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    button::after{display:none}
+    .login-card{transition:none}
+    #login-toast{transition:none}
+}
 </style>
 </head>
 
