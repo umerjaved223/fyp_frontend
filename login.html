@@ -491,6 +491,10 @@ button svg{width:20px;height:20px;vertical-align:middle;margin-right:8px}
 <div class="page-scale">
 <div class="login-shell">
 
+<div id="login-toast" class="toast" role="status" aria-live="polite" aria-atomic="true" style="display:none;position:absolute;left:50%;transform:translateX(-50%);top:22px;z-index:50;background:rgba(7,19,38,.98);border:1px solid rgba(125,170,255,.22);padding:12px 16px;border-radius:14px;color:#fff;font-weight:900;box-shadow:0 14px 30px rgba(0,0,0,.35);">
+    Wrong Username or Password
+</div>
+
 <section class="left-panel">
     <div class="left-content">
         <div class="brand-row">
@@ -537,7 +541,7 @@ button svg{width:20px;height:20px;vertical-align:middle;margin-right:8px}
         <h2>Admin <span>Login</span></h2>
         <p class="welcome">Welcome back! Please login to your account</p>
 
-        <form id="loginForm">
+        <form id="loginForm" novalidate>
             <div class="form-group">
                 <label for="username">Username</label>
                 <div class="input-wrap">
@@ -547,35 +551,35 @@ button svg{width:20px;height:20px;vertical-align:middle;margin-right:8px}
             </div>
 
             <div class="form-group">
-    <label for="password">Password</label>
-    <div class="input-wrap">
-        <div class="input-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24">
-                <rect x="5" y="11" width="14" height="10" rx="2"/>
-                <path d="M8 11V8a4 4 0 0 1 8 0v3"/>
-            </svg>
-        </div>
+                <label for="password">Password</label>
+                <div class="input-wrap">
+                    <div class="input-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24">
+                            <rect x="5" y="11" width="14" height="10" rx="2"/>
+                            <path d="M8 11V8a4 4 0 0 1 8 0v3"/>
+                        </svg>
+                    </div>
 
-        <input type="password" id="password" name="password"
-               placeholder="Enter your password" required>
+                    <input type="password" id="password" name="password"
+                           placeholder="Enter your password" required>
 
-        <div class="eye-icon" onclick="togglePassword()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();togglePassword();}" role="button" tabindex="0" aria-label="Show password">
-            <svg viewBox="0 0 24 24">
-                <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
-                <circle cx="12" cy="12" r="3"/>
-            </svg>
-        </div>
-    </div>
-</div>
+                    <div class="eye-icon" onclick="togglePassword()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();togglePassword();}" role="button" tabindex="0" aria-label="Show password">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
 
-<div class="options">
-    <label class="check">
-        <input type="checkbox" id="rememberMe">
-        Remember Me
-    </label>
+            <div class="options">
+                <label class="check">
+                    <input type="checkbox" id="rememberMe">
+                    Remember Me
+                </label>
 
-    <a href="#" onclick="forgotPassword()">Forgot Password?</a>
-</div>
+                <a href="#" onclick="forgotPassword()">Forgot Password?</a>
+            </div>
 
             <button type="submit"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Login</button>
         </form>
@@ -618,7 +622,14 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
         window.location.href = "dashboard.html";
 
     } else {
-        alert("Wrong Username or Password");
+        const toast = document.getElementById("login-toast");
+        if(toast){
+            toast.textContent = "Wrong Username or Password";
+            toast.style.display = "block";
+            toast.style.opacity = "1";
+            clearTimeout(window.__loginToastTimer);
+            window.__loginToastTimer = setTimeout(()=>{ toast.style.display="none"; }, 2400);
+        }
     }
 });
 
@@ -628,14 +639,29 @@ function togglePassword(){
 
     if(pass.type === "password"){
         pass.type = "text";
-        if(eyeBtn) eyeBtn.setAttribute("aria-label", "Hide password");
+        if(eyeBtn) {
+            eyeBtn.setAttribute("aria-label", "Hide password");
+            eyeBtn.setAttribute("aria-pressed","true");
+        }
     }else{
         pass.type = "password";
-        if(eyeBtn) eyeBtn.setAttribute("aria-label", "Show password");
+        if(eyeBtn) {
+            eyeBtn.setAttribute("aria-label", "Show password");
+            eyeBtn.setAttribute("aria-pressed","false");
+        }
     }
 }
 
 function forgotPassword(){
+    const toast = document.getElementById("login-toast");
+    if(toast){
+        toast.textContent = "Please contact system administrator.";
+        toast.style.display = "block";
+        toast.style.opacity = "1";
+        clearTimeout(window.__loginToastTimer);
+        window.__loginToastTimer = setTimeout(() => { toast.style.display = "none"; }, 2400);
+        return;
+    }
     alert("Please contact system administrator.");
 }
 </script>

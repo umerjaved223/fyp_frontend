@@ -2029,14 +2029,32 @@ function handleToggleKeydown(e){
 }
 
 function addLog(type,message){
-    const time=new Date().toLocaleTimeString();
-    const log=document.createElement("div");
-    log.className="log-entry";
-    log.innerHTML=`<span class="log-time">${time}</span><span class="log-badge ${escapeHtml(type)}">${escapeHtml(String(type).toUpperCase())}</span><span>${escapeHtml(message)}</span>`;
-    const box=document.getElementById("logs-container");
+    const time = new Date().toLocaleTimeString();
+
+    const box = document.getElementById("logs-container");
     if(!box) return;
-    box.insertBefore(log,box.firstChild);
-    while(box.children.length>10){box.removeChild(box.lastChild)}
+
+    const log = document.createElement("div");
+    log.className = "log-entry";
+
+    const timeEl = document.createElement("span");
+    timeEl.className = "log-time";
+    timeEl.textContent = time;
+
+    const badge = document.createElement("span");
+    const safeType = String(type ?? "");
+    badge.className = "log-badge " + escapeHtml(safeType);
+    badge.textContent = safeType.toUpperCase();
+
+    const msg = document.createElement("span");
+    msg.textContent = String(message ?? "");
+
+    log.appendChild(timeEl);
+    log.appendChild(badge);
+    log.appendChild(msg);
+
+    box.insertBefore(log, box.firstChild);
+    while(box.children.length > 10){ box.removeChild(box.lastChild); }
 }
 
 function showToast(message){
@@ -2213,12 +2231,12 @@ function updateSystem(){
 
         const cameraStatus = document.getElementById("camera-status");
         if(cameraStatus){
-            cameraStatus.innerHTML = "● OFFLINE";
+            cameraStatus.textContent = "● OFFLINE";
             cameraStatus.className = "live-badge danger";
         }
         const cameraStatus2 = document.getElementById("camera-status-2");
         if(cameraStatus2){
-            cameraStatus2.innerHTML = "● OFFLINE";
+            cameraStatus2.textContent = "● OFFLINE";
             cameraStatus2.className = "live-badge danger";
         }
     });
@@ -2239,15 +2257,15 @@ function updateCameraStatus(){
 
         if(data.status === "Online"){
             if(badge){
-                badge.innerHTML = "● LIVE";
+                badge.textContent = "● LIVE";
                 badge.className = "live-badge";
             }
             if(badge2){
-                badge2.innerHTML = "● LIVE";
+                badge2.textContent = "● LIVE";
                 badge2.className = "live-badge";
             }
             if(text){
-                text.innerHTML = "Online";
+                text.textContent = "Online";
                 text.className = "success";
             }
             if(lastCameraStatus !== "Online"){
@@ -2256,15 +2274,15 @@ function updateCameraStatus(){
             lastCameraStatus = "Online";
         }else{
             if(badge){
-                badge.innerHTML = "● OFFLINE";
+                badge.textContent = "● OFFLINE";
                 badge.className = "live-badge danger";
             }
             if(badge2){
-                badge2.innerHTML = "● OFFLINE";
+                badge2.textContent = "● OFFLINE";
                 badge2.className = "live-badge danger";
             }
             if(text){
-                text.innerHTML = "Offline";
+                text.textContent = "Offline";
                 text.className = "danger";
             }
             lastCameraStatus = "Offline";
@@ -2320,8 +2338,14 @@ function updatePiHealth(){
         animateNumberTo("ram-usage",data.ram,0," %");
         animateNumberTo("disk-usage",data.disk,0," %");
         safeSet("uptime",data.uptime);
-        const internet=document.getElementById("internet-status");
-        if(internet) internet.innerHTML=navigator.onLine?"<span class='success'>Connected</span>":"<span class='danger'>Offline</span>";
+        const internet = document.getElementById("internet-status");
+        if(internet){
+            internet.textContent = "";
+            const span = document.createElement("span");
+            span.className = navigator.onLine ? "success" : "danger";
+            span.textContent = navigator.onLine ? "Connected" : "Offline";
+            internet.appendChild(span);
+        }
     }).catch(()=>{
         safeSet("cpu-temp","--");
         safeSet("cpu-usage","--");
@@ -2329,7 +2353,13 @@ function updatePiHealth(){
         safeSet("disk-usage","--");
         safeSet("uptime","Offline");
         const internet=document.getElementById("internet-status");
-        if(internet) internet.innerHTML="<span class='danger'>Offline</span>";
+        if(internet){
+            internet.textContent = "";
+            const span = document.createElement("span");
+            span.className = "danger";
+            span.textContent = "Offline";
+            internet.appendChild(span);
+        }
     });
 }
 function resetGasAlert(){
