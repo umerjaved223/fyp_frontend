@@ -5,7 +5,6 @@
 - [ ] Apply dashboard.html production-quality frontend upgrades (frontend-only)
   - [ ] CSS: remove clearly duplicated / dead blocks without changing computed styles
   - [ ] JS: replace safe `innerHTML` string assignments used only for plain text with `textContent`
-  - [ ] JS: refactor `addLog()` to use DOM node creation instead of `innerHTML` templates
   - [ ] JS: ensure toast element has appropriate ARIA role/live (no behavior change)
   - [ ] JS: verify `aria-checked` sync remains correct for main toggle + settings toggles
 - [ ] Final verification (manual in browser)
@@ -16,3 +15,4 @@
   - [ ] device: bulb toggle works; disabled toggles show toast
   - [ ] settings: toggles aria states correct; save/test/export/reset work
   - [ ] responsive: desktop/tablet/mobile layout no overlaps
+
