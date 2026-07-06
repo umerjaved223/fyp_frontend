@@ -355,7 +355,14 @@ body{
     border-radius:var(--radius-md);
     padding:12px;
     font-family:Consolas,monospace;
+    scrollbar-width:thin;
+    scrollbar-color: rgba(47,140,255,.55) rgba(5,14,32,.35);
 }
+.logs-container::-webkit-scrollbar{width:10px;}
+.logs-container::-webkit-scrollbar-track{background:rgba(5,14,32,.35);border-radius:999px;}
+.logs-container::-webkit-scrollbar-thumb{background:rgba(47,140,255,.55);border-radius:999px;border:2px solid rgba(5,14,32,.35);}
+.logs-container::-webkit-scrollbar-thumb:hover{background:rgba(139,92,246,.65);}
+
 .log-entry{
     display:flex;
     gap:13px;
